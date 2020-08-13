@@ -1,0 +1,6 @@
+python Launch.py -i <path to the image> -s <specify if to save the intermediate results, True or False> -o <if want to save the intermediate 
+results then specify the path to the folder where to keep them> -sh <Speficy if to see the intemediate results, True or False>
+
+Example 1: python Launch -i Examples/Schild.jpg -s True -o /results -sh True
+Example 2: python start.py
+           viodeo: C:\Users\Mwomada\Desktop\Vorbereitung-2020-08-13\Examples\video.mp4
