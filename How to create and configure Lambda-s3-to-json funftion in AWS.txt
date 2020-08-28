@@ -1,0 +1,12 @@
+Step 1: In AWS console choose lambda
+Step 2: Create
+Step 3: Fill out the basic information
+Step 4: Choose S3 storage as function trigger, with the event being 
+„All object create events“ then enable the trigger
+Step 5: Proceed, Amazon CloudWatch Logs and Amazon S3 have to be seen here
+Step 6: Search Textract in search bar and select ‚AmazonTextractFullAccess‘,
+Amazon CloudWatch Logs, Amazon S3 and Amazon Textract have to be seen here
+Step 7: Check if the python DIE in Lambda is working
+        Verify if Lambda created is triggered once an image is uploaded to S3 Bucket
+
+
