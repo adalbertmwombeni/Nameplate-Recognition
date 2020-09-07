@@ -1,0 +1,53 @@
+"""
+import boto3
+
+
+def lambda_handler(event, context):
+    print("context: ", context)
+    print("event: ", event)
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    json_file_name = event['Records'][0]['s3']['object']['key']
+    print("bucket: ", bucket)
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('OpticalTable')
+    table.put_item(Item={'OpticalID':3,'Name':'AdalbertKKKKKKKMwombeni'})
+    print("Hello KSB")
+"""    
+import json
+import urllib.parse
+import boto3
+print('Loding function')
+
+s3_client = boto3.client('s3')
+ 
+
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('OpticalTable')
+def lambda_handler(event, context):
+    print("context: ", context)
+    print("event: ", event)
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    json_file_name = event['Records'][0]['s3']['object']['key']
+    print("bucket: ", bucket)
+    print("json_file_name: ", json_file_name)
+    json_object = s3_client.get_object(Bucket=bucket,Key=json_file_name)
+    jsonFileReader = json_object['Body'].read()
+    print("jsonFileReader: ", jsonFileReader)
+    print("jsonFileReader: ", type(jsonFileReader))
+    jsonDict = json.loads(jsonFileReader)
+    print("jsonDict: ", jsonDict)
+    print("Type: ", type(jsonDict))
+    ############################################################################
+    nameplateEntries = []
+    for item in jsonDict:
+        if item["BlockType"] == "LINE":
+            print("item: ", item["Text"])
+            nameplateEntries.append(item["Text"])
+    print("Result: ", nameplateEntries)
+    print("type: ", type(nameplateEntries))
+    ############################################################################
+    table = dynamodb.Table('OpticalTable')
+    print("table: ", table)
+    table.put_item(Item={'OpticalID':7,'Value':nameplateEntries})
+    return 'Hello from Lambda'
