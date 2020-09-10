@@ -1,0 +1,13 @@
+Json file -> S3 -> Lambda -> DynamoDB
+
+Amazon dynamoDB
+
+• Fully managed NoSQL database services
+• Offers speed performance and scalability to store and retrieve data
+• Before creating data into DB, it is needed to create table where data will be stored
+
+Steps to Create DynamoDB Table
+
+1. AWS Management console
+2. Choose table name and table ID
+3. Select the type of primary key
