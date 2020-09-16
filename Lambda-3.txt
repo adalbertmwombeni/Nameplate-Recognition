@@ -1,0 +1,43 @@
+import boto3
+
+def lambda_handler(event, context):
+    client = boto3.resource('dynamodb')
+    table=client.Table('OpticalTable')
+    OpticalTable = table.scan()
+    print("OpticalTable: ", OpticalTable)
+    print("Type of optical table: ",  type(OpticalTable))
+   
+    print("dictItems3: ", OpticalTable["Items"][0])
+    print("dictItems2: ", OpticalTable["Items"][1])
+    print("dictItems1: ", OpticalTable["Items"][2])
+
+    dictItems3 = OpticalTable["Items"][0]
+    dictItems2 = OpticalTable["Items"][1]
+    dictItems1 = OpticalTable["Items"][2]
+    valuesLieferschein = []
+    for key,val in dictItems3.items():
+        print("{} = {}".format(key, val))
+        valuesLieferschein.append(val)
+    print("ValueLieferschein: ", valuesLieferschein[1][2])
+    valueWareneingang = []
+    for key,val in dictItems2.items():
+        print("{} = {}".format(key, val))
+        valueWareneingang.append(val)
+    print("valueWareineingang: ", valueWareneingang[1][15][14:-6])
+
+    for key,val in dictItems1.items():
+        print("{} = {}".format(key, val))
+
+    a = valuesLieferschein[1][2] == valueWareneingang[1][15][14:-6]
+    print(valuesLieferschein[1][2] == valueWareneingang[1][15][14:-6])
+    if a == True:
+       print("Lieferschein und Wareineingangschein sind von dem selben Motor.")
+    else:
+       print("Lieferschein und Wareineingangschein sind LEIDER NICHT von dem selben Motor.")
+    
+    #for item in OpticalTable:
+        #print("item: ", item)
+    
+    return None
+
+
