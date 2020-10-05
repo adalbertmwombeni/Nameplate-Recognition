@@ -1,0 +1,43 @@
+import boto3
+
+def lambda_handler(event, context):
+    client = boto3.resource('dynamodb')
+    table=client.Table('ORS_Table')
+    ORS_Table = table.scan()
+    print("ORS_Table: ", ORS_Table)
+    print("Type of ORS Table: ",  type(ORS_Table))
+   
+    print("dictItemsTest3: ", ORS_Table["Items"][0])
+    print("dictItemsTest2: ", ORS_Table["Items"][1])
+    print("dictItemsTest1: ", ORS_Table["Items"][2])
+
+    dictItems1 = ORS_Table["Items"][0]
+    dictItems2 = ORS_Table["Items"][1]
+    dictItems3 = ORS_Table["Items"][2]
+    valuesLieferschein = []
+    for key,val in dictItems3.items():
+        print("{} = {}".format(key, val))
+        valuesLieferschein.append(val)
+    print("ValueLieferschein: ", valuesLieferschein[1][2])
+    valueWareneingang = []
+    for key,val in dictItems2.items():
+        print("{} = {}".format(key, val))
+        valueWareneingang.append(val)
+    #print("valueWareineingang: ", valueWareneingang[1][15][14:-6])
+    print("======================")
+    print("valueWareineingang: ", valueWareneingang)
+
+    for key,val in dictItems1.items():
+        print("{} = {}".format(key, val))
+
+    a = valuesLieferschein[1][2] == valueWareneingang[1][15][14:-6]
+    print(valuesLieferschein[1][2] == valueWareneingang[1][15][14:-6])
+    if a == True:
+       print("Lieferschein und Wareineingangschein sind von dem selben Motor.")
+    else:
+       print("Lieferschein und Wareineingangschein sind LEIDER NICHT von dem selben Motor.")
+    
+    #for item in ORS_Table:
+        #print("item: ", item)
+    
+    return None
